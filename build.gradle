@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'maven-publish' // Added to enable publishing artifacts to Maven repositories (e.g., mavenLocal)
+}
+
+group = 'com.appsdeveloperblog.ws'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral() // Uses Maven Central to resolve dependencies
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// Publishing configuration to publish this project artifact to a Maven repository (e.g., mavenLocal)
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java // Publishes the Java component (artifact)
+        }
+    }
+}
+
+// This configuration suppresses validation errors for dependencies without version numbers,
+// which can be useful when your project does not specify versions for some dependencies.
+tasks.withType(org.gradle.api.publish.tasks.GenerateModuleMetadata).configureEach {
+    suppressedValidationErrors.add("dependencies-without-versions")
+}
