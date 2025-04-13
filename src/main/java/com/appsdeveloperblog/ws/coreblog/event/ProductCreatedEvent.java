@@ -1,10 +1,11 @@
 package com.appsdeveloperblog.ws.coreblog.event;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 public class ProductCreatedEvent {
 
-    private String productId;
+    private UUID productId;
     private String title;
     private BigDecimal price;
     private Integer quantity;
@@ -12,18 +13,18 @@ public class ProductCreatedEvent {
     public ProductCreatedEvent() {
     }
 
-    public ProductCreatedEvent(String productId, String title, BigDecimal price, Integer quantity) {
+    public ProductCreatedEvent(UUID productId, String title, BigDecimal price, Integer quantity) {
         this.productId = productId;
         this.title = title;
         this.price = price;
         this.quantity = quantity;
     }
 
-    public String getProductId() {
+    public UUID getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(UUID productId) {
         this.productId = productId;
     }
 
